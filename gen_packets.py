@@ -15,7 +15,7 @@ warnings.filterwarnings("ignore", category=SyntaxWarning)
 random.seed(0)
 
 # Meta
-YEAR = 2024
+YEAR = 2025
 
 # Column names
 ROUND_NUM = "Round"
@@ -147,7 +147,8 @@ class Question:
         elif do_not_accept is not None:
             ans_note = do_not_accept
         if pd.isnull(self.ans):
-            self.ans = "MISSING ANSWER, MUST FIX"  # TODO: fix hacky fix
+            self.ans = "None"
+            #self.ans = "MISSING ANSWER, MUST FIX"  # TODO: fix hacky fix
         ans = (
             " ".join((self.ans, f"({ans_note})")) if ans_note is not None else self.ans
         )
@@ -174,15 +175,15 @@ class QuestionPair:
         return "".join(["\\filbreak\n", tossup, "\n\n", bonus, "\n\n"])
 
 
-NUM_ROUNDS = 14
-ROUND_LENGTH = 23  # 4 of each main category, 3 Energy (Bio, Chem, Phys). TODO: fix if category targets are different!
+NUM_ROUNDS = 1
+ROUND_LENGTH = 25  # 4 of each main category, 4 Energy. TODO: fix if category targets are different!
 CATEGORY_TARGETS = {
     Category.Math: 4,
     Category.Biology: 4,
     Category.Chemistry: 4,
     Category.Physics: 4,
     Category.EarthSpace: 4,
-    Category.Energy: 3,
+    Category.Energy: 4,
 }
 
 
@@ -309,7 +310,7 @@ def return_tex(template, round_number, tex_block):
             .replace("ROUND_NUMBER", str(round_number))
             .replace("YEAR", str(YEAR))
         )
-        res += newline + "\n"
+        res += newline
     return res
 
 # Takes in .csv and writes to a given directory with the correct tex files
